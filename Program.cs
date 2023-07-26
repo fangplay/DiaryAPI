@@ -12,6 +12,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+using DiaryAPI.DB;
+
+app.MapGet("/dairies/{id}", (int id) => DiaryDB.GetDiary(id));
+app.MapGet("/diaries", () => DiaryDB.GetDiaries());
+app.MapPost("/diaries", (Diary diary) => DiaryDB.CreateDiary(diary));
+app.MapPut("/diaries", (Diary diary) => DiaryDB.UpdateDiary(diary));
+app.MapDelete("/diaries/{id}", (int id) => DiaryDB.RemoveDiary(id));
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
